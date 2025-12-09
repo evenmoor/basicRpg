@@ -202,3 +202,7 @@ offset = Vector2(0, -8)
 [node name="playerCollsionShape" type="CollisionShape2D" parent="."]
 position = Vector2(-2.3841858e-07, -2)
 shape = SubResource("RectangleShape2D_qhqgy")
+
+[node name="playerCamera" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+position_smoothing_speed = 25.0

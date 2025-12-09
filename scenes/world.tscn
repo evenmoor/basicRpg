@@ -1,9 +1,33 @@
-[gd_scene load_steps=3 format=4 uid="uid://dutys7gron0cf"]
+[gd_scene load_steps=7 format=4 uid="uid://dutys7gron0cf"]
 
+[ext_resource type="Script" uid="uid://c553rf48q4ovw" path="res://scripts/world.gd" id="1_k0juu"]
 [ext_resource type="TileSet" uid="uid://cmhw0ml0u8qpm" path="res://assets/sprites/tilesets/maps/world.tres" id="1_rwgxs"]
+[ext_resource type="Texture2D" uid="uid://cl3krub1pst7i" path="res://assets/sprites/ui/Heart.png" id="3_4wyf3"]
 [ext_resource type="PackedScene" uid="uid://c8gqwkifcbnps" path="res://scenes/player.tscn" id="4_i7141"]
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k0juu"]
+bg_color = Color(0.9913952, 0.5929099, 0.44523573, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.5710654, 0.20743456, 0.029917931, 1)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_71j4m"]
+bg_color = Color(0.74516827, 0.28117612, 0.059780344, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("player_health_bar")]
+script = ExtResource("1_k0juu")
+player_health_bar = NodePath("UI/Control/playerHealthUI/playerHealthBar")
 
 [node name="background tiles" type="TileMapLayer" parent="."]
 use_parent_material = true
@@ -31,3 +55,40 @@ use_parent_material = true
 scale = Vector2(3, 3)
 tile_map_data = PackedByteArray("AAARAAIAAQAGAAQAAAASAAIAAQAHAAQAAAA=")
 tile_set = ExtResource("1_rwgxs")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="playerHealthUI" type="Control" parent="UI/Control"]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="healthSprite" type="TextureRect" parent="UI/Control/playerHealthUI"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 1.0
+offset_right = 43.0
+offset_bottom = 41.0
+texture = ExtResource("3_4wyf3")
+
+[node name="playerHealthBar" type="ProgressBar" parent="UI/Control/playerHealthUI"]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 8.0
+offset_right = 245.0
+offset_bottom = 35.0
+theme_override_styles/background = SubResource("StyleBoxFlat_k0juu")
+theme_override_styles/fill = SubResource("StyleBoxFlat_71j4m")
+value = 75.0
+show_percentage = false
