@@ -25,7 +25,7 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("player_health_bar")]
+[node name="main" type="Node2D" node_paths=PackedStringArray("player_health_bar")]
 script = ExtResource("1_k0juu")
 player_health_bar = NodePath("UI/Control/playerHealthUI/playerHealthBar")
 
