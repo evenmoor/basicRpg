@@ -1,6 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://crdu4l26qs6sd"]
+[gd_scene load_steps=12 format=3 uid="uid://crdu4l26qs6sd"]
 
+[ext_resource type="Script" uid="uid://70q6rtxl5m05" path="res://scripts/battle.gd" id="1_a12nh"]
 [ext_resource type="Texture2D" uid="uid://by1brl2p25iyo" path="res://assets/sprites/enemies/bamboo/Faceset.png" id="1_th188"]
+[ext_resource type="Resource" uid="uid://b7vwkw42fdxc2" path="res://scripts/enemies/resources/bamboo.tres" id="2_lpir7"]
 [ext_resource type="FontFile" uid="uid://bsusuwipywqtp" path="res://assets/fonts/NormalFont.ttf" id="2_p1qf1"]
 [ext_resource type="Texture2D" uid="uid://r4hw8bcicug" path="res://assets/sprites/ui/DialogueBoxSimple.png" id="3_p1qf1"]
 
@@ -43,6 +45,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_a12nh")
+enemy = ExtResource("2_lpir7")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -80,7 +84,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_lpir7")
 value = 75.0
 show_percentage = false
 
-[node name="enemyHealthBarLabel" type="Label" parent="VBoxContainer/enemyHealthBar"]
+[node name="healthBarLabel" type="Label" parent="VBoxContainer/enemyHealthBar"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -151,7 +155,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_lpir7")
 value = 75.0
 show_percentage = false
 
-[node name="playerHealthBarLabel" type="Label" parent="PlayerPanel/PlayerActions/Player Info/playerHealthBar"]
+[node name="healthBarLabel" type="Label" parent="PlayerPanel/PlayerActions/Player Info/playerHealthBar"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0

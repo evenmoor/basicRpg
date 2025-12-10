@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://b7vwkw42fdxc2"]
+
+[ext_resource type="Texture2D" uid="uid://by1brl2p25iyo" path="res://assets/sprites/enemies/bamboo/Faceset.png" id="1_fdi5k"]
+[ext_resource type="Script" uid="uid://wlpq1sv8l1r" path="res://scripts/enemies/baseEnemy.gd" id="2_4kc5m"]
+
+[resource]
+script = ExtResource("2_4kc5m")
+enemy_name = "Bamboo"
+enemy_texture = ExtResource("1_fdi5k")
+enemy_health = 50
+enemy_damage = 5
+enemy_min_exp = 2
+enemy_max_exm = 12

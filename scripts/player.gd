@@ -20,9 +20,6 @@ func playerMovement() -> void:
 	velocity = velocity.normalized() * player_speed #normalize the values and then multiplywdsds by player speed
 	
 	move_and_slide()#envoke physics process to handle the actual movement
-	
-	if Input.is_action_just_pressed("testTrigger"):
-		PlayerState.health -= 1
 	#end playerMovement
 
 func playerMovementAnimation() -> void:
