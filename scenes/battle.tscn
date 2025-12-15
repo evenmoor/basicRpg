@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://crdu4l26qs6sd"]
+[gd_scene load_steps=13 format=3 uid="uid://crdu4l26qs6sd"]
 
 [ext_resource type="Script" uid="uid://70q6rtxl5m05" path="res://scripts/battle.gd" id="1_a12nh"]
 [ext_resource type="Texture2D" uid="uid://by1brl2p25iyo" path="res://assets/sprites/enemies/bamboo/Faceset.png" id="1_th188"]
@@ -37,6 +37,8 @@ bg_color = Color(0.24115604, 0.24115604, 0.24115604, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4k1nj"]
 bg_color = Color(0.0768358, 0.07683582, 0.076835774, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f4pi3"]
 
 [node name="main" type="Control"]
 layout_mode = 3
@@ -146,8 +148,10 @@ anchor_left = 0.05
 anchor_top = 0.5
 anchor_right = 0.95
 anchor_bottom = 0.5
-offset_top = -4.0
-offset_bottom = 4.0
+offset_left = -0.19999981
+offset_top = -10.0
+offset_right = -0.2000122
+offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_a12nh")
@@ -177,6 +181,7 @@ theme_override_fonts/font = ExtResource("2_p1qf1")
 theme_override_styles/normal = SubResource("StyleBoxFlat_th188")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_p1qf1")
 theme_override_styles/hover = SubResource("StyleBoxFlat_4k1nj")
+theme_override_styles/focus = SubResource("StyleBoxFlat_f4pi3")
 text = "ATTACK"
 
 [node name="defendButton" type="Button" parent="PlayerPanel/PlayerActions"]
@@ -228,8 +233,7 @@ layout_mode = 2
 size_flags_vertical = 1
 theme_override_fonts/font = ExtResource("2_p1qf1")
 theme_override_font_sizes/font_size = 24
-text = "A Bamboo Appeared adn adhfa fj hsafkjahsd kfjahs dlfkhas dlkfjhas lkdjfh aslkjdhf alksjdhf lkajshdf 
-a lskdjh alksdjfh akljalksdjfh akljs hf'ad lkas hfa' fa lskdjh alksdjfh aklj"
+text = "Text"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
@@ -249,3 +253,7 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "=>
 "
+
+[connection signal="pressed" from="PlayerPanel/PlayerActions/attackButton" to="." method="_on_attack_button_pressed"]
+[connection signal="pressed" from="PlayerPanel/PlayerActions/defendButton" to="." method="_on_defend_button_pressed"]
+[connection signal="pressed" from="PlayerPanel/PlayerActions/runButton" to="." method="_on_run_button_pressed"]
