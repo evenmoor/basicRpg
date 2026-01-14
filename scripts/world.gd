@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var player_health_bar:ProgressBar
+@onready var player:CharacterBody2D = $player
 
 func updateUI() -> void:
 	#load values from the global PlayerState script
@@ -10,6 +11,7 @@ func updateUI() -> void:
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	updateUI()
-
-func _process(_delta: float) -> void:
-	updateUI()
+	player.position = PlayerState.last_position
+	
+#func _process(_delta: float) -> void:
+	#updateUI()#I don't think this is needed.... unless we do some more health testing

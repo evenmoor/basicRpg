@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://crdu4l26qs6sd"]
+[gd_scene load_steps=18 format=3 uid="uid://crdu4l26qs6sd"]
 
 [ext_resource type="Script" uid="uid://70q6rtxl5m05" path="res://scripts/battle.gd" id="1_a12nh"]
 [ext_resource type="Texture2D" uid="uid://by1brl2p25iyo" path="res://assets/sprites/enemies/bamboo/Faceset.png" id="1_th188"]
@@ -39,6 +39,113 @@ bg_color = Color(0.24115604, 0.24115604, 0.24115604, 1)
 bg_color = Color(0.0768358, 0.07683582, 0.076835774, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f4pi3"]
+
+[sub_resource type="Animation" id="Animation_lpir7"]
+resource_name = "EnemyDamaged"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer/enemyTexture:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_6vh42"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer/enemyTexture:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VBoxContainer/enemyHealthBar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.078431375, 0.105882354, 0.105882354, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4k1nj"]
+resource_name = "PlayerDamaged"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.2, 0.23333333, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Color(0.078431375, 0.105882354, 0.105882354, 1), Color(1, 0.105882354, 0.105882354, 1), Color(0.078431375, 0.105882354, 0.105882354, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_f4pi3"]
+resource_name = "EnemyDeath"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer/enemyTexture:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VBoxContainer/enemyHealthBar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f4pi3"]
+_data = {
+&"EnemyDamaged": SubResource("Animation_lpir7"),
+&"EnemyDeath": SubResource("Animation_f4pi3"),
+&"PlayerDamaged": SubResource("Animation_4k1nj"),
+&"RESET": SubResource("Animation_6vh42")
+}
 
 [node name="main" type="Control"]
 layout_mode = 3
@@ -253,6 +360,11 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "=>
 "
+
+[node name="battleAnimations" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_f4pi3")
+}
 
 [connection signal="pressed" from="PlayerPanel/PlayerActions/attackButton" to="." method="_on_attack_button_pressed"]
 [connection signal="pressed" from="PlayerPanel/PlayerActions/defendButton" to="." method="_on_defend_button_pressed"]

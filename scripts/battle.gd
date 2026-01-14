@@ -19,6 +19,7 @@ var player_is_defending:bool = false
 @onready var uiTextArea:TextureRect = $combatTextWraper
 @onready var uiCombatText:Label = $combatTextWraper/MarginContainer/combatText
 @onready var uiPlayerActions:BoxContainer = $PlayerPanel/PlayerActions
+@onready var animationPlayer:AnimationPlayer = $battleAnimations
 
 func _updateHealthBar(health:int, max_health:int, health_bar:ProgressBar):
 	health_bar.value = health
@@ -32,7 +33,37 @@ func _displayText(text:String):
 
 #check to see the battle is over
 func _check_for_victory() -> void:
-	print("checking for victory!")
+	if enemy_health <= 0:
+		_displayText(enemy.enemy_name + " has been defeated!")
+		await self.textBoxClosed
+		animationPlayer.play("EnemyDeath")
+		await animationPlayer.animation_finished #a built-in signal which fires when the animation is complete
+		
+		var expEarned:int = randi_range(enemy.enemy_min_exp, enemy.enemy_max_exp)
+		PlayerState.current_exp += expEarned
+		_displayText("You earned " + str(expEarned) + " experience points.")
+		await self.textBoxClosed
+		
+		if PlayerState.current_exp >= PlayerState.exp_for_next_level:
+			PlayerState.current_level += 1
+			#make stat modifications
+			PlayerState.current_exp = PlayerState.current_exp - PlayerState.exp_for_next_level
+			#heal the player if they leveled up
+			player_health = PlayerState.max_health
+			_displayText("You leveled up. You are now Level " + str(PlayerState.current_level) + ". You feel refreshed!")
+			await self.textBoxClosed
+		#end level up check
+		
+		#update state values for future battles
+		PlayerState.health = player_health
+		get_tree().change_scene_to_file("res://scenes/world.tscn")
+	#end enemy death check
+	
+	if player_health <= 0:
+		_displayText("You have been defeated! Time warps backwards giving you another chance!")
+		await self.textBoxClosed
+		PlayerState.last_position = PlayerState.initial_position
+		get_tree().change_scene_to_file("res://scenes/world.tscn")	
 
 func _enemy_turn() -> void:
 	uiPlayerActions.hide()
@@ -42,6 +73,7 @@ func _enemy_turn() -> void:
 	var hitChance = randf_range(0, 1)
 	if(hitChance <= enemy.enemy_hit_rate):
 		var damageDealt:int = randi_range(enemy.enemy_min_damage, enemy.enemy_max_damage)
+		animationPlayer.play("PlayerDamaged")
 		
 		if player_is_defending :
 			damageDealt = floori(damageDealt * PlayerState.shield_damage_reduction)
@@ -56,7 +88,7 @@ func _enemy_turn() -> void:
 		_displayText("You dodge deftly away from the blow!")
 		await self.textBoxClosed
 		
-	_check_for_victory()
+	await _check_for_victory()
 	player_is_defending = false
 	uiPlayerActions.show()
 #end enemy turn
@@ -70,6 +102,7 @@ func _on_attack_button_pressed() -> void:
 	if(hitChance <= PlayerState.weapon_hit_rate):
 		var damageDealt:int = randi_range(PlayerState.weapon_damage_max, PlayerState.weapon_damage_min)
 		_displayText("You hit the " + enemy.enemy_name + " for " + str(damageDealt) + " damage!")
+		animationPlayer.play("EnemyDamaged")
 		await self.textBoxClosed
 		enemy_health = max(0, enemy_health - damageDealt) #max usage prevents the enemy health from going negative
 		_updateHealthBar(enemy_health, enemy_max_health, enemy_health_bar)
@@ -77,7 +110,7 @@ func _on_attack_button_pressed() -> void:
 		_displayText("You missed!")
 		await self.textBoxClosed
 	
-	_check_for_victory()
+	await _check_for_victory()
 	_enemy_turn()
 #end attack button pressed
 
@@ -92,7 +125,7 @@ func _on_defend_button_pressed() -> void:
 	
 	#await get_tree().create_timer(0.2).timeout #the tutorial wanted to add this to give a delay. I think it is stupid but figured it could be helpful as an example for future projects
 	
-	_check_for_victory()
+	await _check_for_victory()
 	_enemy_turn()
 #end defend button pressed
 

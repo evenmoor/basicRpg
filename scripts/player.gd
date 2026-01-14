@@ -39,5 +39,9 @@ func playerMovementAnimation() -> void:
 		playerSprite.play("walk_" + player_movement_direction, animation_speed)
 
 func _physics_process(_delta: float) -> void:
+	if Input.is_action_just_pressed("testTrigger"):
+		PlayerState.last_position = self.position #we can do this because this script is directly attached to the player scene
+		get_tree().change_scene_to_file("res://scenes/battle.tscn")
+	
 	playerMovement()
 	playerMovementAnimation()

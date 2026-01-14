@@ -11,5 +11,4 @@ enemy_health = 50
 enemy_hit_rate = 0.5
 enemy_min_damage = 6
 enemy_max_damage = 8
-enemy_min_exp = 2
-enemy_max_exm = 12
+enemy_max_exp = 15

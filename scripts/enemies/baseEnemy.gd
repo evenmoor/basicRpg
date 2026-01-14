@@ -7,4 +7,4 @@ extends Resource
 @export var enemy_min_damage:int = 5
 @export var enemy_max_damage:int = 10
 @export var enemy_min_exp:int = 1
-@export var enemy_max_exm:int = 10
+@export var enemy_max_exp:int = 10
