@@ -1,12 +1,26 @@
 extends Node2D
 
 @export var player_health_bar:ProgressBar
+@export var player_exp_bar:ProgressBar
+@export var player_exp_label:Label
+@export var player_weapon_label:Label
+
 @onready var player:CharacterBody2D = $player
 
 func updateUI() -> void:
 	#load values from the global PlayerState script
 	player_health_bar.max_value = PlayerState.max_health
 	player_health_bar.value = PlayerState.health
+	
+	player_exp_bar.max_value = PlayerState.exp_for_next_level
+	player_exp_bar.value = PlayerState.current_exp
+	
+	var player_level_text = str(PlayerState.current_level)
+	if PlayerState.current_level < 10 :
+		player_level_text = "0" + player_level_text
+	player_exp_label.text = "LVL: " + player_level_text
+	
+	player_weapon_label.text = "WPN: "+str(PlayerState.weapon_damage_min)+" - "+str(PlayerState.weapon_damage_max)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

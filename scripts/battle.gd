@@ -45,9 +45,7 @@ func _check_for_victory() -> void:
 		await self.textBoxClosed
 		
 		if PlayerState.current_exp >= PlayerState.exp_for_next_level:
-			PlayerState.current_level += 1
-			#make stat modifications
-			PlayerState.current_exp = PlayerState.current_exp - PlayerState.exp_for_next_level
+			PlayerState.levelUp()
 			#heal the player if they leveled up
 			player_health = PlayerState.max_health
 			_displayText("You leveled up. You are now Level " + str(PlayerState.current_level) + ". You feel refreshed!")

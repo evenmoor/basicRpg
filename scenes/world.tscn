@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=4 uid="uid://dutys7gron0cf"]
+[gd_scene load_steps=11 format=4 uid="uid://dutys7gron0cf"]
 
 [ext_resource type="Script" uid="uid://c553rf48q4ovw" path="res://scripts/world.gd" id="1_k0juu"]
 [ext_resource type="TileSet" uid="uid://cmhw0ml0u8qpm" path="res://assets/sprites/tilesets/maps/world.tres" id="1_rwgxs"]
 [ext_resource type="Texture2D" uid="uid://cl3krub1pst7i" path="res://assets/sprites/ui/Heart.png" id="3_4wyf3"]
 [ext_resource type="PackedScene" uid="uid://c8gqwkifcbnps" path="res://scenes/player.tscn" id="4_i7141"]
+[ext_resource type="FontFile" uid="uid://bsusuwipywqtp" path="res://assets/fonts/NormalFont.ttf" id="5_71j4m"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k0juu"]
 bg_color = Color(0.9913952, 0.5929099, 0.44523573, 1)
@@ -25,9 +26,33 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[node name="main" type="Node2D" node_paths=PackedStringArray("player_health_bar")]
+[sub_resource type="Theme" id="Theme_qfnet"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i7141"]
+bg_color = Color(0.52165276, 0.829437, 0.59644926, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.19607843, 0.47058824, 0.21568628, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4mrxx"]
+bg_color = Color(0.19473517, 0.4696309, 0.2172333, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="main" type="Node2D" node_paths=PackedStringArray("player_health_bar", "player_exp_bar", "player_exp_label", "player_weapon_label")]
 script = ExtResource("1_k0juu")
 player_health_bar = NodePath("UI/Control/playerHealthUI/playerHealthBar")
+player_exp_bar = NodePath("UI/Control/playerExpUI/HBoxContainer/playerExpBar")
+player_exp_label = NodePath("UI/Control/playerExpUI/HBoxContainer/playerLevelLabel")
+player_weapon_label = NodePath("UI/Control/PlayerDamageUI/playerWeaponDamage")
 
 [node name="background tiles" type="TileMapLayer" parent="."]
 use_parent_material = true
@@ -69,10 +94,10 @@ grow_vertical = 2
 [node name="playerHealthUI" type="Control" parent="UI/Control"]
 layout_mode = 1
 anchors_preset = 0
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 33.0
+offset_top = 22.0
+offset_right = 53.0
+offset_bottom = 42.0
 
 [node name="healthSprite" type="TextureRect" parent="UI/Control/playerHealthUI"]
 layout_mode = 0
@@ -92,3 +117,47 @@ theme_override_styles/background = SubResource("StyleBoxFlat_k0juu")
 theme_override_styles/fill = SubResource("StyleBoxFlat_71j4m")
 value = 75.0
 show_percentage = false
+
+[node name="playerExpUI" type="Control" parent="UI/Control"]
+anchors_preset = 0
+offset_left = 9.0
+offset_top = 3.0
+offset_right = 49.0
+offset_bottom = 43.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Control/playerExpUI"]
+custom_minimum_size = Vector2(200, 15)
+layout_mode = 1
+offset_right = 200.0
+offset_bottom = 23.0
+
+[node name="playerLevelLabel" type="Label" parent="UI/Control/playerExpUI/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_qfnet")
+theme_override_fonts/font = ExtResource("5_71j4m")
+text = "LVL: 01"
+
+[node name="playerExpBar" type="ProgressBar" parent="UI/Control/playerExpUI/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_i7141")
+theme_override_styles/fill = SubResource("StyleBoxFlat_4mrxx")
+value = 75.0
+show_percentage = false
+
+[node name="PlayerDamageUI" type="Control" parent="UI/Control"]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 35.0
+offset_top = 61.0
+offset_right = 75.0
+offset_bottom = 101.0
+
+[node name="playerWeaponDamage" type="Label" parent="UI/Control/PlayerDamageUI"]
+layout_mode = 0
+offset_left = 43.0
+offset_right = 103.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("5_71j4m")
+text = "WPN: 11 - 100"
