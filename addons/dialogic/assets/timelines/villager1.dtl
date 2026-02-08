@@ -1,0 +1,28 @@
+if {Quest_Variables.village_quests.village_1_quests.shovel_quest.quest_completed} == false:
+	if {NPC_Variables.Villager_Variables.villager1.met} == false:
+		player: Hello!
+		villager1: Hey, are you new here?
+		- Yes
+			villager1: Welcome to the tutorial then!
+		- No
+			villager1: Really? I've never seen you before!
+		set {NPC_Variables.Villager_Variables.villager1.met} = true
+	if {Quest_Variables.village_quests.village_1_quests.shovel_quest.quest_accepted} == false:
+		villager1: I need your help.\
+		The evil monsters stole my [wave]shovel[/wave]!
+		villager1: I need it back before harvest or we won't be able to harvest the crops. \
+		Can you help me?
+		- Yes
+			set {Quest_Variables.village_quests.village_1_quests.shovel_quest.quest_accepted} = true
+		- No
+			set {Quest_Variables.village_quests.village_1_quests.shovel_quest.quest_accepted} = false
+		if {Quest_Variables.village_quests.village_1_quests.shovel_quest.quest_accepted} == true:
+			player: Sure, I'll try to get it back.
+			villager1: Thank you so much!
+		else:
+			player: No, I have more important things to do.
+			villager1: I understand. Please let me know if you change your mind.
+	else:
+		villager1: Were you able to find my [wave]shovel[/wave]?
+else:
+	villager1: awThank you so much for finding my [wave]shovel[/wave]!

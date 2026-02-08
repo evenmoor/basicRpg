@@ -22,19 +22,37 @@ Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 [dialogic]
 
 directories/dch_directory={
-"player": "res://addons/dialogic/assets/characters/player.dch"
+"player": "res://addons/dialogic/assets/characters/player.dch",
+"villager1": "res://addons/dialogic/assets/characters/villager1.dch"
 }
 directories/dtl_directory={
-"helloWorld": "res://addons/dialogic/assets/timelines/helloWorld.dtl"
+"helloWorld": "res://addons/dialogic/assets/timelines/helloWorld.dtl",
+"villager1": "res://addons/dialogic/assets/timelines/villager1.dtl"
 }
-layout/style_directory={}
+layout/style_directory={
+"": "res://addons/dialogic/assets/styles/text_bubble_style.tres",
+"text_bubble_style": "res://addons/dialogic/assets/styles/text_bubble_style.tres"
+}
 glossary/default_case_sensitive=true
-layout/style_list=[]
-layout/default_style="Default"
+layout/style_list=["res://addons/dialogic/assets/styles/text_bubble_style.tres"]
+layout/default_style="res://addons/dialogic/assets/styles/text_bubble_style.tres"
 variables={
+"NPC_Variables": {
+"Villager_Variables": {
+"villager1": {
+"met": false
+}
+}
+},
 "Quest_Variables": {
-"Test_Quest": {
-"quest_accepted": false
+"village_quests": {
+"village_1_quests": {
+"shovel_quest": {
+"quest_accepted": false,
+"quest_completed": false,
+"shovel_found": false
+}
+}
 }
 }
 }

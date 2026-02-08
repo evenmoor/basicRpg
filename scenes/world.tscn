@@ -1,10 +1,17 @@
-[gd_scene load_steps=11 format=4 uid="uid://dutys7gron0cf"]
+[gd_scene load_steps=14 format=4 uid="uid://dutys7gron0cf"]
 
 [ext_resource type="Script" uid="uid://c553rf48q4ovw" path="res://scripts/world.gd" id="1_k0juu"]
 [ext_resource type="TileSet" uid="uid://cmhw0ml0u8qpm" path="res://assets/sprites/tilesets/maps/world.tres" id="1_rwgxs"]
 [ext_resource type="Texture2D" uid="uid://cl3krub1pst7i" path="res://assets/sprites/ui/Heart.png" id="3_4wyf3"]
 [ext_resource type="PackedScene" uid="uid://c8gqwkifcbnps" path="res://scenes/player.tscn" id="4_i7141"]
 [ext_resource type="FontFile" uid="uid://bsusuwipywqtp" path="res://assets/fonts/NormalFont.ttf" id="5_71j4m"]
+[ext_resource type="Texture2D" uid="uid://fw82bkx704" path="res://assets/sprites/npcs/villager/Idle.png" id="6_qfnet"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i7141"]
+radius = 43.104523
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4mrxx"]
+size = Vector2(42, 46.284134)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k0juu"]
 bg_color = Color(0.9913952, 0.5929099, 0.44523573, 1)
@@ -66,7 +73,30 @@ scale = Vector2(3, 3)
 tile_map_data = PackedByteArray("AAAQAAsAAgAaAAAAAAARAAsAAgAbAAAAAAAMAAYAAQABAAYAAAANAAYAAQACAAYAAAALAAYAAQAAAAYAAAARAAMAAQANAAIAAAAQAAMAAQAMAAIAAAASAAMAAQAOAAIAAAATAAMAAQAPAAIAAAA=")
 tile_set = ExtResource("1_rwgxs")
 
-[node name="player" parent="." instance=ExtResource("4_i7141")]
+[node name="villager1" type="Area2D" parent="."]
+position = Vector2(599, 314)
+
+[node name="villagerActionArea" type="CollisionShape2D" parent="villager1"]
+position = Vector2(1, 10)
+shape = SubResource("CircleShape2D_i7141")
+
+[node name="villagerArea" type="StaticBody2D" parent="villager1"]
+
+[node name="villagerCollsion" type="CollisionShape2D" parent="villager1/villagerArea"]
+position = Vector2(0, 9.931885)
+scale = Vector2(1, 0.99091834)
+shape = SubResource("RectangleShape2D_4mrxx")
+
+[node name="villagerSprite" type="Sprite2D" parent="villager1"]
+z_as_relative = false
+position = Vector2(1, 35)
+scale = Vector2(3, 3)
+texture = ExtResource("6_qfnet")
+offset = Vector2(0, -8)
+hframes = 4
+frame = 3
+
+[node name="player" parent="." groups=["Player"] instance=ExtResource("4_i7141")]
 position = Vector2(736, 550)
 
 [node name="foreground tiles" type="TileMapLayer" parent="."]
@@ -161,3 +191,6 @@ offset_right = 103.0
 offset_bottom = 23.0
 theme_override_fonts/font = ExtResource("5_71j4m")
 text = "WPN: 11 - 100"
+
+[connection signal="body_entered" from="villager1" to="." method="_on_villager_1_body_entered"]
+[connection signal="body_exited" from="villager1" to="." method="_on_villager_1_body_exited"]

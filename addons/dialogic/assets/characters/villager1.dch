@@ -2,7 +2,7 @@
 "@path": "res://addons/dialogic/Resources/character.gd",
 "@subpath": NodePath(""),
 &"_translation_id": "",
-&"color": Color(0.4296875, 0, 1, 1),
+&"color": Color(0.1484375, 1, 0, 1),
 &"custom_info": {
 "prefix": "",
 "sound_mood_default": "",
@@ -21,16 +21,16 @@
 "style": "text_bubble_style",
 "suffix": ""
 },
-&"default_portrait": "Base 1",
+&"default_portrait": "Base 2",
 &"description": "",
-&"display_name": "Player",
+&"display_name": "Jane Doe",
 &"mirror": false,
 &"nicknames": [""],
 &"offset": Vector2(0, 0),
 &"portraits": {
-"Base 1": {
+"Base 2": {
 "export_overrides": {
-"image": "\"res://addons/dialogic/Example Assets/portraits/rpg_portraits/base1.png\""
+"image": "\"res://addons/dialogic/Example Assets/portraits/rpg_portraits/base2.png\""
 },
 "mirror": false,
 "offset": Vector2(0, 0),
