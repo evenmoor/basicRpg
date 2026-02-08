@@ -21,15 +21,23 @@ Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 
 [dialogic]
 
-directories/dch_directory={}
+directories/dch_directory={
+"player": "res://addons/dialogic/assets/characters/player.dch"
+}
 directories/dtl_directory={
-"timeline": "res://addons/dialogic/assets/timeline.dtl"
+"helloWorld": "res://addons/dialogic/assets/timelines/helloWorld.dtl"
 }
 layout/style_directory={}
 glossary/default_case_sensitive=true
 layout/style_list=[]
 layout/default_style="Default"
-variables={}
+variables={
+"Quest_Variables": {
+"Test_Quest": {
+"quest_accepted": false
+}
+}
+}
 extensions_folder="res://addons/dialogic_additions"
 text/letter_speed=0.01
 text/initial_text_reveal_skippable=true
