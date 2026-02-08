@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://dutys7gron0cf"]
+[gd_scene load_steps=16 format=4 uid="uid://dutys7gron0cf"]
 
 [ext_resource type="Script" uid="uid://c553rf48q4ovw" path="res://scripts/world.gd" id="1_k0juu"]
 [ext_resource type="TileSet" uid="uid://cmhw0ml0u8qpm" path="res://assets/sprites/tilesets/maps/world.tres" id="1_rwgxs"]
@@ -6,6 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://c8gqwkifcbnps" path="res://scenes/player.tscn" id="4_i7141"]
 [ext_resource type="FontFile" uid="uid://bsusuwipywqtp" path="res://assets/fonts/NormalFont.ttf" id="5_71j4m"]
 [ext_resource type="Texture2D" uid="uid://fw82bkx704" path="res://assets/sprites/npcs/villager/Idle.png" id="6_qfnet"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qfnet"]
+size = Vector2(64, 55)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i7141"]
+size = Vector2(33, 46)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i7141"]
 radius = 43.104523
@@ -69,12 +75,26 @@ tile_set = ExtResource("1_rwgxs")
 
 [node name="midground tiles" type="TileMapLayer" parent="."]
 use_parent_material = true
+position = Vector2(0, -1)
 scale = Vector2(3, 3)
-tile_map_data = PackedByteArray("AAAQAAsAAgAaAAAAAAARAAsAAgAbAAAAAAAMAAYAAQABAAYAAAANAAYAAQACAAYAAAALAAYAAQAAAAYAAAARAAMAAQANAAIAAAAQAAMAAQAMAAIAAAASAAMAAQAOAAIAAAATAAMAAQAPAAIAAAA=")
+tile_map_data = PackedByteArray("AAAQAAsAAgAaAAAAAAARAAsAAgAbAAAAAAAMAAYAAQABAAYAAAANAAYAAQACAAYAAAALAAYAAQAAAAYAAAARAAMAAQANAAIAAAAQAAMAAQAMAAIAAAASAAMAAQAOAAIAAAATAAMAAQAPAAIAAAAJAAkAAQALAAQAAAAJAAgAAQALAAQAAAAJAAcAAQALAAQAAAAJAAoAAQALAAQAAAAJAAsAAQALAAQAAAAJAAwAAQAIAAUAAAAJAAUAAQALAAQAAAAJAAQAAQALAAQAAAAJAAMAAQALAAQAAAAJAAIAAQALAAQAAAAJAAEAAQALAAQAAAAJAAAAAQALAAQAAAAKAAwAAQAJAAQAAAAKAA0AAQALAAQAAAA=")
 tile_set = ExtResource("1_rwgxs")
 
+[node name="villageGate" type="Area2D" parent="."]
+position = Vector2(458, 313)
+
+[node name="gateCollision" type="CollisionShape2D" parent="villageGate"]
+position = Vector2(-1, -0.5)
+shape = SubResource("RectangleShape2D_qfnet")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="villageGate"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="villageGate/StaticBody2D"]
+position = Vector2(-1.5, -1)
+shape = SubResource("RectangleShape2D_i7141")
+
 [node name="villager1" type="Area2D" parent="."]
-position = Vector2(599, 314)
+position = Vector2(839, 178)
 
 [node name="villagerActionArea" type="CollisionShape2D" parent="villager1"]
 position = Vector2(1, 10)
@@ -192,5 +212,6 @@ offset_bottom = 23.0
 theme_override_fonts/font = ExtResource("5_71j4m")
 text = "WPN: 11 - 100"
 
+[connection signal="body_entered" from="villageGate" to="." method="_on_village_gate_body_entered"]
 [connection signal="body_entered" from="villager1" to="." method="_on_villager_1_body_entered"]
 [connection signal="body_exited" from="villager1" to="." method="_on_villager_1_body_exited"]

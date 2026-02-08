@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 PlayerState="*res://scripts/global/player_state.gd"
+VillageState="*res://scripts/global/village_state.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 
 [dialogic]
@@ -27,6 +28,7 @@ directories/dch_directory={
 }
 directories/dtl_directory={
 "helloWorld": "res://addons/dialogic/assets/timelines/helloWorld.dtl",
+"villageGate": "res://addons/dialogic/assets/timelines/villageGate.dtl",
 "villager1": "res://addons/dialogic/assets/timelines/villager1.dtl"
 }
 layout/style_directory={

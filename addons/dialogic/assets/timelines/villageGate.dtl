@@ -1,0 +1,4 @@
+if {Quest_Variables.village_quests.village_1_quests.shovel_quest.quest_accepted} == false:
+	player: No reason for me to just wander in the wilderness....
+else:
+	do Dialogic

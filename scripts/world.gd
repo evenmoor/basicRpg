@@ -6,6 +6,7 @@ extends Node2D
 @export var player_weapon_label:Label
 
 @onready var player:CharacterBody2D = $player
+@onready var villageGate:Area2D = $villageGate
 
 #dialogic assets
 @onready var dl_character_player = load("res://addons/dialogic/assets/characters/player.dch")
@@ -28,22 +29,32 @@ func updateUI() -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	Dialogic.signal_event.connect(_on_dialogic_signal) #this connects dialogic signals to the listeners
 	updateUI()
 	player.position = PlayerState.last_position
-	
+		
 #func _process(_delta: float) -> void:
 	#updateUI()#I don't think this is needed.... unless we do some more health testing
 
 
 func _on_villager_1_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
-		#print("Villager: Hello!")
 		if Dialogic.current_timeline == null: #checks to see if a timeline is running
 			var layout = Dialogic.start("villager1") #starts the labeled timeline
 			layout.register_character(dl_character_player, $player) #allows tracking of the player sprite for the speech bubble
 			layout.register_character(dl_character_villager, $villager1/villagerSprite) 
 
-
 func _on_villager_1_body_exited(body: Node2D) -> void:
 	if body.is_in_group("Player"):
-		print("Villager: Goodbye!")
+		Dialogic.end_timeline(true)
+
+func _on_village_gate_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		if Dialogic.current_timeline == null:
+			var layout = Dialogic.start("villageGate")
+			layout.register_character(dl_character_player, $player)
+
+func _on_dialogic_signal(argument: String) -> void:
+	match argument:
+		"openGate":
+			villageGate.queue_free()

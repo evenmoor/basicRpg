@@ -18,6 +18,7 @@ if {Quest_Variables.village_quests.village_1_quests.shovel_quest.quest_completed
 			set {Quest_Variables.village_quests.village_1_quests.shovel_quest.quest_accepted} = false
 		if {Quest_Variables.village_quests.village_1_quests.shovel_quest.quest_accepted} == true:
 			player: Sure, I'll try to get it back.
+			[signal arg="openGate"]
 			villager1: Thank you so much!
 		else:
 			player: No, I have more important things to do.
